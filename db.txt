@@ -1,0 +1,32 @@
+User{
+	UserNo Primary key,
+	UserName varchar(30),
+	OrgName varchar(45),
+	Occupation varchar(25),
+	Password varchar
+}
+
+Contacts{
+	UserNo Primary key,
+	mobile integer,
+	email varchar,
+	facebook varchar,
+	twitter varhar,
+	instagram varchar,
+	linkedIn varchar,
+	website varchar,
+	foreign key UserNo references User(UserNo)
+}
+
+Services/Products{
+	PostedBy Primary key,
+	Description varchar,
+	Price double,
+	foreign key PostedBy references User(UserNo)
+}
+
+Post{
+	PostedBy Primary key,
+	PostTime DateTime,
+	foreign key PostedBy references User(UserNo)
+}

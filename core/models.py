@@ -28,3 +28,15 @@ class Service(models.Model):
 
     def __str__(self):
         return self.Service_name
+
+
+class Post(models.Model):
+    postby = models.ForeignKey(Service,
+                               on_delete=models.CASCADE,
+                               related_name="servicepost"
+                               )
+    postText = models.TextField(null=False, blank=False,verbose_name="post text")
+    postImage = models.ImageField(upload_to="elements/", null=True)
+
+    def __str__(self):
+        return self.postText[:25]

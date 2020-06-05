@@ -5,9 +5,18 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class UserProfile(models.Model):
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name="userprofile"
+                             )
+    bio = models.TextField()
+    avatar = models.ImageField(upload_to='avatar/',verbose_name="user avatar")
+
+
 class UserFollowing(models.Model):
-    user_id = models.ForeignKey(User, related_name="following")
-    following_user_id = models.ForeignKey(Service, related_name="followers")
+    user_id = models.ForeignKey(User, related_name="following", on_delete=models.CASCADE)
+    following_user_id = models.ForeignKey(Service, related_name="followers", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
@@ -16,3 +25,16 @@ class UserFollowing(models.Model):
 
     def __str__(self):
         f"{self.user_id} follows {self.following_user_id}"
+
+
+class UserAddress(models.Model):
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name="useraddress"
+                             )
+    twitter = models.CharField(max_length=100, null=True, blank=True)
+    facebook = models.CharField(max_length=100, null=True, blank=True)
+    linkedin = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.user

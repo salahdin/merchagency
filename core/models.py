@@ -4,6 +4,8 @@ from django.utils import timezone
 
 
 class Service(models.Model):
+    choice = [()]
+
     user = models.OneToOneField(User,
                                 on_delete=models.CASCADE,
                                 related_name="seller")
@@ -26,6 +28,8 @@ class Service(models.Model):
         blank=True
     )
 
+    category = models.CharField(max_length=50,verbose_name="category of service")
+
     def __str__(self):
         return self.Service_name
 
@@ -40,3 +44,4 @@ class Post(models.Model):
 
     def __str__(self):
         return self.postText[:25]
+

@@ -63,12 +63,13 @@ def frontpage(request):
 
 
 def profileDetailView(request, id_):
-    if request.user.is_authenticated:
-        person = get_object_or_404(User, id=id_)
-        person_profile = person.userprofile
 
-        return render(request, 'profileview.html', {'person': person, 'person_profile': person_profile})
-    return redirect('/')
+    person = get_object_or_404(User, id=id_)
+    profile = UserProfile.objects.get(user=person)
+    print(person.userprofile)
+    address = person.useraddress.all()
+
+    return render(request, 'accounts/profileview.html', {'person': person, 'profile': profile, 'address': address})
 
 
 

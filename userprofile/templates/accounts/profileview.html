@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+    <img src="{{ profile.avatar.url }}">
+    <p>name:{{ profile.user }}</p>
+    <p>bio:{{ profile.bio }}</p>
+    <p>address</p>
+    {% for i in address %}
+        <a href="{{i.link}}">{{ i.link }}</a>
+    {% endfor %}
+{% endblock %}

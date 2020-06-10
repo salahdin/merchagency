@@ -8,7 +8,7 @@
     {% if posts %}
         {% for p in posts %}
         <div class="card" style="width: 18rem;">
-            <p class="card-text">post by : {{ p.postby }}</p>
+            <p class="card-text">post by : <a href="{% url 'accounts:profile' p.postby.id%}">{{ p.postby }}</a></p>
             {% if p.image %}
                 <img class="card-img-top" src="{{p.image.url}}" alt="Card image cap">
             {% endif %}

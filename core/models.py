@@ -41,6 +41,7 @@ class Post(models.Model):
                                )
     postText = models.TextField(null=False, blank=False,verbose_name="post text")
     postImage = models.ImageField(upload_to="elements/", null=True)
+    postCreated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.postText[:25]

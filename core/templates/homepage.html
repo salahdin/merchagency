@@ -1,4 +1,5 @@
 {% extends 'templates/base.html' %}
+{% load ratings %}
 
 {% block body %}
     <form action="{% url 'search_results' %}" method="get">
@@ -14,6 +15,7 @@
             <div class="card-body">
             <p class="card-text">desc : {{ p.postText }}</p>
             <p class="card-text">price : {{ p.price }}</p>
+                {% ratings p %}
             </div>
         </div>
         {% endfor %}

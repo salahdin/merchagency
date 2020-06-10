@@ -1,10 +1,21 @@
 {% extends 'templates/base.html' %}
-{% load crispy_forms_tags %}
+
 {% block body %}
-<h2>New post</h2>
-    <form method="POST" class="post-form">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="save btn btn-default">Save</button>
+    <form action="{% url 'search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
     </form>
+    {% if posts %}
+        {% for p in posts %}
+        <div class="card" style="width: 18rem;">
+            <p class="card-text">post by : {{ p.postby }}</p>
+            {% if p.image %}
+                <img class="card-img-top" src="{{p.image.url}}" alt="Card image cap">
+            {% endif %}
+            <div class="card-body">
+            <p class="card-text">desc : {{ p.postText }}</p>
+            <p class="card-text">price : {{ p.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

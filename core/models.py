@@ -4,8 +4,6 @@ from django.utils import timezone
 
 
 class Service(models.Model):
-    choice = [()]
-
     user = models.OneToOneField(User,
                                 on_delete=models.CASCADE,
                                 related_name="seller")
@@ -15,8 +13,8 @@ class Service(models.Model):
         max_length=50,
     )
 
-    uploadDate = models.DateTimeField(
-        verbose_name="date and time of upload",
+    createDate = models.DateTimeField(
+        verbose_name="date and time created",
         null=False,
         auto_created=True,
         default=timezone.now
@@ -28,7 +26,8 @@ class Service(models.Model):
         blank=True
     )
 
-    category = models.CharField(max_length=50,verbose_name="category of service")
+    avi = models.ImageField(null=True, blank=True, upload_to='avatar/')
+
 
     def __str__(self):
         return self.Service_name
@@ -42,6 +41,7 @@ class Post(models.Model):
     postText = models.TextField(null=False, blank=False,verbose_name="post text")
     postImage = models.ImageField(upload_to="elements/", null=True)
     postCreated = models.DateTimeField(auto_now=True)
+    price = models.CharField(max_length=15,null=True,verbose_name="price of item",blank=True)
 
     def __str__(self):
         return self.postText[:25]

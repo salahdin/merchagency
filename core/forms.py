@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post,Service
 
 
 class PostForm(forms.ModelForm):
@@ -11,3 +11,9 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('postText', 'postImage')
 
+
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = "__all__"
+        exclude = ('user',)

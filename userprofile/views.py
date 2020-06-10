@@ -7,14 +7,14 @@ from django.contrib.auth.models import User
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = SignUpForm(data=request.POST)
         if form.is_valid():
             # log in the user
             user = form.get_user()
             login(request, user)
     else:
-        form = AuthenticationForm()
-    return render(request, "accounts/login.html", {'form': form})
+        form = SignUpForm()
+    return render(request, "accounts/user_login.html", {'form': form})
 
 
 def logout_view(request):
@@ -26,6 +26,8 @@ def frontpage(request):
     if request.method == 'POST':
         if 'signupform' in request.POST:
             signupform = SignUpForm(data=request.POST)
+            addressform = UserAddressForm(data=request.POST)
+            profileform = UserProfileForm(data=request.POST)
             signinform = SignInForm()
 
             if signupform.is_valid():
@@ -34,6 +36,12 @@ def frontpage(request):
                 signupform.save()
                 user = authenticate(username=username, password=password)
                 # log the user in
+                address = addressform.save(commit=False)
+                profile = profileform.save(commit=False)
+                address.user = user
+                profile.user = user
+                profile.save()
+                address.save()
                 login(request, user)
         else:
             signinform = SignInForm(data=request.POST)
@@ -44,8 +52,14 @@ def frontpage(request):
     else:
         signupform = SignUpForm()
         signinform = SignInForm()
-
-    return render(request, 'accounts/login.html', {'signupform': signupform, 'signinform': signinform})
+        addressform = UserAddressForm()
+        profileform = UserProfileForm()
+    context = {'signupform': signupform,
+               'signinform': signinform,
+               'profileform':profileform,
+               'addressform':addressform
+               }
+    return render(request, 'accounts/user_login.html', context)
 
 
 def profileDetailView(request, id_):

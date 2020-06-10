@@ -24,7 +24,7 @@ class UserFollowing(models.Model):
         ordering = ["-created"]
 
     def __str__(self):
-        f"{self.user_id} follows {self.following_user_id}"
+        return str(f"{self.user_id} follows {self.following_user_id}")
 
 
 class UserAddress(models.Model):
@@ -32,9 +32,7 @@ class UserAddress(models.Model):
                              on_delete=models.CASCADE,
                              related_name="useraddress"
                              )
-    twitter = models.CharField(max_length=100, null=True, blank=True)
-    facebook = models.CharField(max_length=100, null=True, blank=True)
-    linkedin = models.CharField(max_length=100, null=True, blank=True)
+    link = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.user

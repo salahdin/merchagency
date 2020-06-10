@@ -66,10 +66,15 @@
         {% for field in signupform %}
           <div class="form-group">
             {{ field }}
-
           </div>
         {% endfor %}
+      {{ profileform }}
+
+      {{ addressform }}
+      <br>
       <input type="submit" value="Sign up" name="signupform" class="btn btn-primary">
       </div>
+<div class="address-form">
 
+</div>
 {% endblock %}

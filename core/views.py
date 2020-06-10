@@ -1,12 +1,12 @@
 from django.shortcuts import get_list_or_404,redirect
 from django.views.generic import ListView,TemplateView
 from .models import *
-from .forms import PostForm
+from .forms import PostForm,ServiceForm
 from django.shortcuts import render
-
+from django.db.models import Q
 
 class HomePage(TemplateView):
-    template_name = "homepage.html"
+    template_name = "core/templates/post.html"
 
 
 class PostListView(ListView):
@@ -21,6 +21,18 @@ class PostListView(ListView):
         return context
 
 
+class SearchResultsView(ListView):
+    model = Service
+    template_name = 'homepage.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Service.objects.filter(
+            Q(Service_name__icontains=query) | Q(description__icontains=query)
+        )
+        return object_list
+
+
 def userfeed(request):
     """
     user feed
@@ -29,11 +41,11 @@ def userfeed(request):
     """
 
     usersIfollow = []
-    for id in request.user.following.all():
-        usersIfollow.append(id.user)
+    for user in request.user.follower.all():
+        usersIfollow.append(user.id)
 
     usersIfollow.append(request.user.id)
-    posts = Post.objects.filter(user_id__in=usersIfollow)[0:25]
+    posts = Post.objects.filter(id__in=usersIfollow)[0:25]
 
     return render(request, 'homepage.html', {'posts': posts})
 
@@ -48,17 +60,27 @@ def post(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.postby = request.user
+            service_instance = Service.objects.get(id=request.user.seller.id)
+            post.postby = service_instance
             post.save()
             return redirect('/')
     else:
         form = PostForm()
-    return render(request, 'homepage.html', {'form': form})
+    return render(request, 'post.html', {'form': form})
 
 
-
-
-
+def register_service(request):
+    if request.method == "POST":
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            service_form = form.save(commit=False)
+            user_instance = User.objects.get(id=request.user.id)
+            service_form = user_instance
+            service_form.save()
+            return redirect('/')
+    else:
+        form = ServiceForm()
+    return render(request, 'post.html', {'form': form})
 
 
 

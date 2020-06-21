@@ -1,0 +1,27 @@
+{% extends 'templates/base.html' %}
+{% load ratings %}
+
+{% block body %}
+    <style>
+    .avatar {
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    </style>
+        {% for s in services %}
+        <div class="card mx-auto"  style="width: 50rem;">
+            <div class="card-header">
+                <a href="{% url 'accounts:profile' s.user.id%}">{{ s.Service_name }}</a></p>
+                {% if s.avi %}
+                    <img class="card-img-top avatar img-circle" src="{{s.avi.url}}" alt="Card image cap">
+                {% endif %}
+            </div>
+            <div class="card-body">
+            <p class="card-text">desc : {{ s.description }}</p>
+            <p class="card-text">created : {{ s.createDate }}</p>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock %}

@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body %}
+<div id="Page1" class="page" style="">
 <div class="row">
   <div class="col-6">
     <h2>Sign in</h2>
@@ -36,45 +37,77 @@
 
 
     <div class="col-6">
-      <div id="page1">
         <h3>Don't have an account yet?</h3>
 
         {% if signupform.non_field_errors %}
-          <div class="alert danger">
-            {{ signupform.non_field_errors }}
-          </div>
+            <div class="alert danger">
+                {{ signupform.non_field_errors }}
+            </div>
         {% endif %}
 
         {% if signupform.errors %}
-          {% for field in signupform %}
-            {% for error in field.errors %}
-              <div class="alert alert-danger">
-                <b>{{ error|escape }}</b>
-              </div>
+            {% for field in signupform %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <b>{{ error|escape }}</b>
+                    </div>
+                {% endfor %}
             {% endfor %}
-          {% endfor %}
-          {% for error in signupform.non_field_errors %}
-            <div class="alert alert-danger">
-              <b>{{ error|escape }}</b>
-            </div>
-          {% endfor %}
+            {% for error in signupform.non_field_errors %}
+                <div class="alert alert-danger">
+                    <b>{{ error|escape }}</b>
+                </div>
+            {% endfor %}
         {% endif %}
 
-      <form action="." method="POST">
-        {% csrf_token %}
+        <form action="." method="POST">
+            {% csrf_token %}
 
-        {% for field in signupform %}
-          <div class="form-group">
-            {{ field }}
-          </div>
-        {% endfor %}
-      {{ profileform }}
+            {% for field in signupform %}
+                <div class="form-group">
+                    {{ field }}
+                </div>
+            {% endfor %}
+            {{ profileform }}
 
-      {{ addressform }}
-      <br>
-      <input type="submit" value="Sign up" name="signupform" class="btn btn-primary">
-      </div>
-<div class="address-form">
 
+            <br>
+            <input type="submit" value="Sign up" name="signupform" class="btn btn-primary">
+
+            <div class="address-form">
+
+            </div>
+
+
+            <p>Show page <span onclick="show('Page1');">1</span>, <span onclick="show('Page2');">2</span>, <span onclick="show('Page3');">3</span>.
+    </p>
+
+
+
+
+<div id="Page2" class="page" style="display:none">
+    {{ profileform }}
+</div>
+<div id="Page3" class="page" style="display:none">
+    {{ addressform }}
+</div>
+</div>
+
+<script>
+    function show(elementID) {
+    var ele = document.getElementById(elementID);
+    if (!ele) {
+        alert("no such element");
+        return;
+    }
+    var pages = document.getElementsByClassName('page');
+    for(var i = 0; i < pages.length; i++) {
+        pages[i].style.display = 'none';
+    }
+    ele.style.display = 'block';
+}
+
+    </script>
+</div>
 </div>
 {% endblock %}

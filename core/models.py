@@ -41,7 +41,7 @@ class Post(models.Model):
     postText = models.TextField(null=False, blank=False,verbose_name="post text")
     postImage = models.ImageField(upload_to="elements/", null=True)
     postCreated = models.DateTimeField(auto_now=True)
-    price = models.CharField(max_length=15,null=True,verbose_name="price of item",blank=True)
+    price = models.CharField(max_length=15, null=True, verbose_name="price of item",blank=True)
 
     def __str__(self):
         return self.postText[:25]

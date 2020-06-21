@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<link href="{%static 'css/login-style.css' %}" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5">
+          <div class="card-img-left d-none d-md-flex">
+             <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">Register</h5>
+            <form action="." method="post" class="form-signin">
+              <hr>
+
+                {% csrf_token %}
+            <div class="login-page" id="page1">
+             {% for field in signinform %}
+                  <div class="form-group">
+                    {{ field }}
+                </div>
+             {% endfor %}
+            <input type="submit" value="Sign in" name="siginform" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+
+            </div>
+            </form>
+
+          <form method="post" action="." class="form-signup">
+            <div class="signup-page" style="display: none" id="page2">
+                {% for field in signupform %}
+                  <div class="form-group">
+                    {{ field }}
+                </div>
+                {% endfor %}
+            <input type="submit" value="Sign in" name="signupform" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+            </div>
+          </form>
+
+
+        <button id= "hidebutton" class="btn btn-outline-secondary" onclick="myFunction()">i dont have an account</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+        function myFunction() {
+          var x = document.getElementById("page1");
+          var y = document.getElementById("page2");
+          var z = document.getElementById("hidebutton");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "none";
+            z.innerText = "i dont have an account";
+
+          } else {
+            x.style.display = "none";
+            y.style.display = "block";
+            z.innerText = "back";
+          }
+        }
+    </script>
+{% endblock %}

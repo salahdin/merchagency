@@ -26,8 +26,8 @@ def frontpage(request):
     if request.method == 'POST':
         if 'signupform' in request.POST:
             signupform = SignUpForm(data=request.POST)
-            addressform = UserAddressForm(data=request.POST)
-            profileform = UserProfileForm(data=request.POST)
+            '''addressform = UserAddressForm(data=request.POST)
+            profileform = UserProfileForm(data=request.POST)'''
             signinform = SignInForm()
 
             if signupform.is_valid():
@@ -36,19 +36,21 @@ def frontpage(request):
                 signupform.save()
                 user = authenticate(username=username, password=password)
                 # log the user in
-                address = addressform.save(commit=False)
+                """address = addressform.save(commit=False)
                 profile = profileform.save(commit=False)
                 address.user = user
-                profile.user = user
-                profile.save()
-                address.save()
+                profile.user = user"""
+                """profile.save()
+                address.save()"""
                 login(request, user)
+                redirect('/')
         else:
             signinform = SignInForm(data=request.POST)
             signupform = SignUpForm()
 
             if signinform.is_valid():
                 login(request, signinform.get_user())
+                redirect('/')
     else:
         signupform = SignUpForm()
         signinform = SignInForm()
@@ -56,11 +58,12 @@ def frontpage(request):
         profileform = UserProfileForm()
     context = {'signupform': signupform,
                'signinform': signinform,
-               'profileform':profileform,
-               'addressform':addressform
                }
-    return render(request, 'accounts/user_login.html', context)
+    return render(request, 'accounts/loginpage.html', context)
 
+
+def editprofile(request):
+    pass
 
 def profileDetailView(request, id_):
 

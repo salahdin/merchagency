@@ -11,7 +11,7 @@ class HomePage(TemplateView):
 
 class PostListView(ListView):
     model = Post
-    template_name = "listview.html"
+    template_name = "homepage.html"
     context_object_name = "posts"
     paginate_by = 10
 
@@ -23,7 +23,8 @@ class PostListView(ListView):
 
 class SearchResultsView(ListView):
     model = Service
-    template_name = 'homepage.html'
+    template_name = 'serviceList.html'
+    context_object_name = 'services'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -40,13 +41,11 @@ def userfeed(request):
     :return:
     """
 
-    usersIfollow = []
+    usersIfollow = set()
     for user in request.user.follower.all():
-        usersIfollow.append(user.id)
+        usersIfollow.add(user.id)
 
-    usersIfollow.append(request.user.id)
-    posts = Post.objects.filter(id__in=usersIfollow)[0:25]
-
+    posts = Post.objects.all().filter(postby__in=usersIfollow)[0:25]
     return render(request, 'homepage.html', {'posts': posts})
 
 
@@ -82,5 +81,5 @@ def register_service(request):
         form = ServiceForm()
     return render(request, 'post.html', {'form': form})
 
-
-
+def follow(request, id_):
+    pass

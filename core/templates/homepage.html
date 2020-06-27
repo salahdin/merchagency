@@ -1,4 +1,4 @@
-{% extends 'templates/base.html' %}
+{% extends 'base.html' %}
 {% load ratings %}
 
 {% block body %}
@@ -10,10 +10,6 @@
       border-radius: 50%;
     }
     </style>
-    <form action="{% url 'core:search_results' %}" method="get">
-        <input name="q" type="text" placeholder="Search...">
-    </form>
-
         {% for p in posts %}
         <div class="card mx-auto"  style="width: 50rem;">
             <div class="card-header">

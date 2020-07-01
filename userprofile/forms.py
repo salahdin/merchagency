@@ -5,7 +5,7 @@ from .models import *
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True,
-                             widget=forms.widgets.TextInput(attrs={'placeholder': 'Email', 'class': 'form-control'}))
+                             widget=forms.widgets.TextInput(attrs={'placeholder': 'Email','type':'email', 'class': 'form-control'}))
     first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(
         attrs={'placeholder': 'First Name', 'class': 'form-control'}))
     last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(

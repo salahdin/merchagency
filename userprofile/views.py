@@ -24,16 +24,21 @@ def logout_view(request):
 
 def frontpage(request):
     if request.method == 'POST':
+        print("psto")
         if 'signupform' in request.POST:
             signupform = SignUpForm(data=request.POST)
             '''addressform = UserAddressForm(data=request.POST)
             profileform = UserProfileForm(data=request.POST)'''
             signinform = SignInForm()
-
+            print("0")
             if signupform.is_valid():
+                print("1")
                 username = signupform.cleaned_data['username']
                 password = signupform.cleaned_data['password1']
                 signupform.save()
+                print("2")
+                print(username)
+                print(password)
                 user = authenticate(username=username, password=password)
                 # log the user in
                 """address = addressform.save(commit=False)
@@ -43,12 +48,13 @@ def frontpage(request):
                 """profile.save()
                 address.save()"""
                 login(request, user)
+                print("3")
                 redirect('core:list_view')
+            else:
+                print("doesnt work")
         else:
             signinform = SignInForm(data=request.POST)
             signupform = SignUpForm()
-            print('login')
-            print(signinform.is_valid())
             if signinform.is_valid():
                 print('login1')
                 username = signinform.cleaned_data['username']

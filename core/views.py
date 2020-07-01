@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 
 class HomePage(TemplateView):
-    template_name = "core/templates/landingpage.html"
+    template_name = "templates/landingpage.html"
 
 
 class PostListView(ListView):
@@ -33,6 +33,20 @@ class SearchResultsView(ListView):
         query = self.request.GET.get('q')
         object_list = Service.objects.filter(
             Q(Service_name__contains=query) | Q(description__contains=query)
+        )
+        print(object_list)
+        return object_list
+
+
+class AlternateSearchResultsView(ListView):
+    model = Post
+    template_name = 'serviceList.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Service.objects.filter(
+            Q(postby__contains=query) | Q(postText__contains=query)
         )
         print(object_list)
         return object_list

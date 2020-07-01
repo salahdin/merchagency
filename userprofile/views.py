@@ -19,7 +19,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('accounts:frontpage')
 
 
 def frontpage(request):
@@ -43,19 +43,23 @@ def frontpage(request):
                 """profile.save()
                 address.save()"""
                 login(request, user)
-                redirect('/')
+                redirect('core:list_view')
         else:
             signinform = SignInForm(data=request.POST)
             signupform = SignUpForm()
-
+            print('login')
+            print(signinform.is_valid())
             if signinform.is_valid():
-                login(request, signinform.get_user())
-                redirect('/')
+                print('login1')
+                username = signinform.cleaned_data['username']
+                password = signinform.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                print('login2')
+                return redirect('core:list_view')
     else:
         signupform = SignUpForm()
         signinform = SignInForm()
-        addressform = UserAddressForm()
-        profileform = UserProfileForm()
     context = {'signupform': signupform,
                'signinform': signinform,
                }
@@ -63,24 +67,29 @@ def frontpage(request):
 
 
 def editprofile(request):
-    pass
+    if request.method =="POST":
+        addressform = UserAddressForm(data=request.POST)
+        profileform = UserProfileForm(data=request.POST)
+        if addressform.is_valid() and profileform.is_valid():
+            address = addressform.save(commit=False)
+            profile = profileform.save(commit=False)
+            address.user = request.user
+            profile.user = request.user
+            profile.save()
+            address.save()
+            redirect("core:list_view")
+    else:
+        addressform = UserAddressForm()
+        profileform = UserProfileForm()
+    return render(request, 'accounts/editprofile.html', {"addressform":addressform, "profileform": profileform})
+
+
 
 def profileDetailView(request, id_):
 
     person = get_object_or_404(User, id=id_)
     profile = UserProfile.objects.get(user=person)
-    print(person.userprofile)
     address = person.useraddress.all()
 
     return render(request, 'accounts/profileview.html', {'person': person, 'profile': profile, 'address': address})
 
-
-
-def follow(request, id_):
-    """
-    follow a user or service
-    :param request:
-    :param id_:
-    :return:
-    """
-    pass

@@ -10,9 +10,6 @@
       border-radius: 50%;
     }
     </style>
-    <form action="{% url 'core:search_results' %}" method="get">
-        <input name="q" type="text" placeholder="Search...">
-    </form>
 
         {% for p in posts %}
         <div class="card mx-auto"  style="width: 50rem;">
@@ -28,5 +25,6 @@
                 {% ratings p %}
             </div>
         </div>
+            <br>
         {% endfor %}
 {% endblock %}

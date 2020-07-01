@@ -1,9 +1,12 @@
-from django.shortcuts import get_list_or_404,redirect
+from django.shortcuts import get_list_or_404,redirect,get_object_or_404
 from django.views.generic import ListView,TemplateView
 from .models import *
-from .forms import PostForm,ServiceForm
-from django.shortcuts import render
+from .forms import PostForm, ServiceForm
+from django.shortcuts import render, HttpResponseRedirect
 from django.db.models import Q
+from userprofile.models import UserFollowing
+from django.contrib.auth.decorators import login_required
+
 
 class HomePage(TemplateView):
     template_name = "core/templates/post.html"
@@ -29,11 +32,13 @@ class SearchResultsView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = Service.objects.filter(
-            Q(Service_name__icontains=query) | Q(description__icontains=query)
+            Q(Service_name__contains=query) | Q(description__contains=query)
         )
+        print(object_list)
         return object_list
 
 
+@login_required(login_url="/")
 def userfeed(request):
     """
     user feed
@@ -48,7 +53,7 @@ def userfeed(request):
     posts = Post.objects.all().filter(postby__in=usersIfollow)[0:25]
     return render(request, 'homepage.html', {'posts': posts})
 
-
+@login_required(login_url="/")
 def post(request):
     """
     user posts adverts
@@ -67,7 +72,7 @@ def post(request):
         form = PostForm()
     return render(request, 'post.html', {'form': form})
 
-
+@login_required(login_url="/")
 def register_service(request):
     if request.method == "POST":
         form = ServiceForm(request.POST)
@@ -81,5 +86,17 @@ def register_service(request):
         form = ServiceForm()
     return render(request, 'post.html', {'form': form})
 
+
 def follow(request, id_):
-    pass
+    if request.method == "GET":
+        userToFollow = get_object_or_404(User, id=id_)
+        try:
+            UserFollowing.objects.create(
+                user_id = request.user,
+                following_user_id=userToFollow,
+            )
+        except Exception:
+            pass
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+

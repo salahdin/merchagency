@@ -14,7 +14,6 @@
             <h5 class="card-title text-center">Register</h5>
             <form action="." method="post" class="form-signin">
               <hr>
-
                 {% csrf_token %}
             <div class="login-page" id="page1">
              {% for field in signinform %}
@@ -23,18 +22,18 @@
                 </div>
              {% endfor %}
             <input type="submit" value="Sign in" name="siginform" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
-
             </div>
             </form>
 
           <form method="post" action="." class="form-signup">
+            {% csrf_token %}
             <div class="signup-page" style="display: none" id="page2">
                 {% for field in signupform %}
                   <div class="form-group">
                     {{ field }}
                 </div>
                 {% endfor %}
-            <input type="submit" value="Sign in" name="signupform" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+            <input type="submit" value="Sign Up" name="signupform" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
             </div>
           </form>
 

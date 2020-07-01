@@ -2,8 +2,21 @@
 {% load static %}
 {% block body %}
 
+<style>
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+</style>
+
 <img class="img-thumbnail mx-auto d-block"  src="{{ profile.avatar.url}}" alt="Card image cap">
 <div class="card mb-3">
+    {% if profile.user not in request.user.follower.all %}
+        <form method="get" action="{% url "core:follow" profile.user.id %}">
+            <input type="submit" name="follow" value="follow" class="btn-outline-secondary">
+        </form>
+    {% endif %}
   <div class="card-body">
     <h5 class="card-title">{{ profile.user }}</h5>
     <p class="card-text">{{ profile.bio }}</p>
@@ -15,9 +28,8 @@
 
 
 <h3>posts from user</h3>
-    <div class="card-group">
         {% for posts in person.seller.servicepost.all %}
-      <div class="card">
+      <div class="card" style="width: 18rem;">
       {% if  posts.postImage %}
         <img class="card-img-top" src="{{ posts.postImage.url }}" alt="Card image cap">
       {% endif %}
@@ -29,5 +41,4 @@
         </div>
       </div>
     {% endfor %}
-    </div>
 {% endblock %}

@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block body %}
+<h5>{{ request.user }}</h5>
+    {%  for i in request.user.userprofile.all %}
+        {% if i.avatar %}
+            <img src="{{ i.avatar.url }}" class="">
+        {% endif %}
+        <br>
+        <p>{{ i.bio }}</p>
+    {% endfor %}
+    <p class="text-info">edit profile</p>
+    <div class="form">
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            {{ profileform|crispy }}
+            {{ addressform|crispy }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    </div>
 
 {% endblock %}

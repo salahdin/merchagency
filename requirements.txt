@@ -1,5 +1,5 @@
 asgiref==3.2.7
-Django==2.2.8
+Django==2.2.13
 django-bootstrap-base-template==0.0.2
 django-braces==1.14.0
 django-crispy-forms==1.9.1

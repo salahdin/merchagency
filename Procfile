@@ -1,0 +1,1 @@
+web: gunicorn digitalmarketing.wsgi --log-file -

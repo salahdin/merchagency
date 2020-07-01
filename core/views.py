@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 
 class HomePage(TemplateView):
-    template_name = "core/templates/post.html"
+    template_name = "core/templates/landingpage.html"
 
 
 class PostListView(ListView):

@@ -27,9 +27,13 @@
          <li class="nav-item">
             <a class="nav-link disabled" href="{% url 'accounts:logout' %}">logout</a>
           </li>
-        </ul>
 
+            {% else %}
+                <li class="nav-item">
+            <a class="nav-link disabled" href="{% url 'accounts:frontpage' %}">register/login</a>
+          </li>
           {% endif %}
+         </ul>
          <form action="{% url 'core:search_results' %}" method="get" class="form-inline my-2 my-lg-0">
           <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
           <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>

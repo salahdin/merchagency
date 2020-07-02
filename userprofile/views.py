@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout,authenticate
 from . forms import *
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 def login_view(request):
@@ -30,28 +31,17 @@ def frontpage(request):
             '''addressform = UserAddressForm(data=request.POST)
             profileform = UserProfileForm(data=request.POST)'''
             signinform = SignInForm()
-            print("0")
             if signupform.is_valid():
-                print("1")
                 username = signupform.cleaned_data['username']
                 password = signupform.cleaned_data['password1']
                 signupform.save()
-                print("2")
-                print(username)
-                print(password)
                 user = authenticate(username=username, password=password)
                 # log the user in
-                """address = addressform.save(commit=False)
-                profile = profileform.save(commit=False)
-                address.user = user
-                profile.user = user"""
-                """profile.save()
-                address.save()"""
                 login(request, user)
-                print("3")
-                redirect('core:list_view')
+                messages.success(request, 'Account created successfully')
+                return redirect('core:list_view')
             else:
-                print("doesnt work")
+                messages.warning(request, 'Failed to create account')
         else:
             signinform = SignInForm(data=request.POST)
             signupform = SignUpForm()

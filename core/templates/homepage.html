@@ -27,4 +27,10 @@
         </div>
             <br>
         {% endfor %}
+
+    {% if not posts %}
+        <div class="card">
+            <p class="card-text"> your feed is empty follow some accounts</p>
+        </div>
+    {% endif %}
 {% endblock %}

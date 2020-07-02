@@ -7,39 +7,40 @@
     <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
       <title>Merch-Agency</title>
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-  <a class="navbar-brand text-white" href="#">Merch Agency</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-<div class="container">
-  <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    {% if request.user.is_authenticated %}
-          <li class="nav-item active">
-            <a class="nav-link text-white" href="{% url 'core:list_view' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'core:post' %}">Post</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'accounts:editprofile' %}">My account</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'accounts:logout' %}">logout</a>
-          </li>
-        <form action="{% url 'core:search_results' %}" style="position:relative; left:600px; top:2px;" method="get" class="form-inline my-2 my-lg-0">
-                <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
-                <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        {% else %}
-        <li class="nav-item">
-            <a class="nav-link disabled text-white" href="{% url 'accounts:frontpage' %}">register/login</a>
-        </li>
-    {% endif %}
-    </ul>
-  </div>
-</nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand text-white" href="#">Merch Agency</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="container">
+      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        {% if request.user.is_authenticated %}
+              <li class="nav-item active">
+                <a class="nav-link text-white" href="{% url 'core:list_view' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'core:post' %}">Post</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:editprofile' %}">My account</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'accounts:logout' %}">logout</a>
+              </li>
+            <form action="{% url 'core:search_results' %}" style="position:relative; left:600px; top:2px;" method="get" class="form-inline my-2 my-lg-0">
+                    <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link disabled text-white" href="{% url 'accounts:frontpage' %}">register/login</a>
+            </li>
+        {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
   </head>
   <body>
 

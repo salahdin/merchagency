@@ -10,6 +10,7 @@
       border-radius: 50%;
     }
     </style>
+    {% if services %}
         {% for s in services %}
         <div class="card mx-auto"  style="width: 50rem;">
             <div class="card-header">
@@ -24,4 +25,5 @@
             </div>
         </div>
         {% endfor %}
+    {% endif %}
 {% endblock %}

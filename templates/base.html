@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
       <title>Merch-Agency</title>
+  </head>
+  <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-dark">
       <a class="navbar-brand text-white" href="#">Merch Agency</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    <div class="container">
+
       <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         {% if request.user.is_authenticated %}
@@ -28,7 +30,7 @@
               <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'accounts:logout' %}">logout</a>
               </li>
-            <form action="{% url 'core:search_results' %}" style="position:relative; left:600px; top:2px;" method="get" class="form-inline my-2 my-lg-0">
+            <form action="{% url 'core:search_results' %}" class="form-inline my-2 my-lg-0 align-left">
                     <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
                     <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -39,21 +41,26 @@
         {% endif %}
         </ul>
       </div>
-    </div>
   </nav>
-  </head>
-  <body>
 
+  <main role="main" class="container">
       <div class="row justify-content-center">
         <div class="col-8">
 
           <hr class="mt-0 mb-4">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
           {% block body %}
 
           {% endblock %}
         </div>
-      </div>
-    </div>
+        </div>
+  </main>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

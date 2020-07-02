@@ -28,10 +28,12 @@ def frontpage(request):
         print("psto")
         if 'signupform' in request.POST:
             signupform = SignUpForm(data=request.POST)
+            print("psto")
             '''addressform = UserAddressForm(data=request.POST)
             profileform = UserProfileForm(data=request.POST)'''
             signinform = SignInForm()
             if signupform.is_valid():
+                print("psto")
                 username = signupform.cleaned_data['username']
                 password = signupform.cleaned_data['password1']
                 signupform.save()

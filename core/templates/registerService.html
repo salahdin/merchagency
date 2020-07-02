@@ -1,6 +1,15 @@
 {% extends 'templates/base.html' %}
 {% load crispy_forms_tags %}
 
-{% block main %}
+{% block body %}
 
+    <p class="h4 mb-4">register your buisness</p>
+<form class="text-center border border-light p-5" method="post">
+         {% csrf_token %}
+        {{ form|crispy }}
+    <!-- Send button -->
+    <button class="btn btn-info btn-block" type="submit">SAVE</button>
+
+</form>
+<!-- Default form contact -->
 {% endblock %}

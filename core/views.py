@@ -29,13 +29,18 @@ class SearchResultsView(ListView):
     template_name = 'serviceList.html'
     context_object_name = 'services'
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         query = self.request.GET.get('q')
-        object_list = Service.objects.filter(
+        service_object_list = Service.objects.filter(
             Q(Service_name__contains=query) | Q(description__contains=query)
         )
-        print(object_list)
-        return object_list
+        context['services'] = service_object_list
+        post_object_list = Post.objects.filter(
+            Q(postText__icontains=query)
+        )
+        context['posts'] = post_object_list
+        return context
 
 
 class AlternateSearchResultsView(ListView):
@@ -45,8 +50,8 @@ class AlternateSearchResultsView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = Service.objects.filter(
-            Q(postby__contains=query) | Q(postText__contains=query)
+        object_list = Post.objects.filter(
+            Q(postText__icontains=query)
         )
         print(object_list)
         return object_list
@@ -75,11 +80,13 @@ def post(request):
     :return:
     """
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             service_instance = Service.objects.get(id=request.user.seller.id)
             post.postby = service_instance
+            docs = request.FILES
+            post.postImage = docs['postImage']
             post.save()
             return redirect('/')
     else:
@@ -89,16 +96,18 @@ def post(request):
 @login_required(login_url="/")
 def register_service(request):
     if request.method == "POST":
-        form = ServiceForm(request.POST)
+        form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
             service_form = form.save(commit=False)
             user_instance = User.objects.get(id=request.user.id)
             service_form = user_instance
+            docs = request.FILES
+            service_form.avi = docs['avi']
             service_form.save()
             return redirect('/')
     else:
         form = ServiceForm()
-    return render(request, 'post.html', {'form': form})
+    return render(request, 'registerService.html', {'form': form})
 
 
 def follow(request, id_):

@@ -9,4 +9,5 @@ urlpatterns = [
     path('feed/', views.userfeed, name="list_view"),
     path('search/', views.SearchResultsView.as_view(), name="search_results"),
     path('follow/<int:id_>', views.follow, name="follow"),
+    path('registerservice/', views.register_service,name="register_service"),
 ]

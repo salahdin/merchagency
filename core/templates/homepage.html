@@ -30,7 +30,7 @@
                 <br>
             {% endfor %}
 
-    {% if  posts %}
+    {% if not posts %}
             <p class="text-info"> your feed is empty, follow some services....</p>
             {% for i in some_users %}
                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">

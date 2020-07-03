@@ -68,7 +68,7 @@ def userfeed(request):
     usersIfollow = set()
     for user in request.user.follower.all():
         usersIfollow.add(user.following_user_id)
-    follow_new_users = User.objects.all()[:5]
+    follow_new_users = Service.objects.all()[:5]
     posts = Post.objects.all().filter(postby__in=usersIfollow)[0:25]
 
     return render(request, 'homepage.html', {'posts': posts, 'some_users': follow_new_users})
@@ -113,13 +113,15 @@ def register_service(request):
 
 def follow(request, id_):
     if request.method == "GET":
-        userToFollow = get_object_or_404(User, id=id_)
+        print("hello")
+        userToFollow = get_object_or_404(Service, id=id_)
         try:
             UserFollowing.objects.create(
                 user_id = request.user,
                 following_user_id=userToFollow,
             )
         except Exception:
+            print("dosent work")
             pass
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

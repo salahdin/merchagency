@@ -35,8 +35,10 @@
             <p class="card-text"> your feed is empty follow some accounts</p>
             {% for i in some_users %}
                 <div class="card">
-                    <p class="card-text">i</p>
-                    <a class="btn-primary" href="{% url 'core:follow' i.id %}">Follow</a>
+                    <p class="card-text">{{ i }}</p>
+                    <form method="get" action="{% url 'core:follow' i.id %}">
+                        <input type="submit" class="btn-outline-primary" value="Follow" name="Follow">
+                    </form>
                 </div>
             {% endfor %}
         </div>

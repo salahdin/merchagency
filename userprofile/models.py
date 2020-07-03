@@ -11,7 +11,7 @@ class UserProfile(models.Model):
                              related_name="userprofile"
                              )
     bio = models.TextField()
-    avatar = models.ImageField(upload_to='avatar/',verbose_name="user avatar")
+    avatar = models.ImageField(upload_to='avatar/',verbose_name="user avatar", null=True,blank=True)
 
 
 class UserFollowing(models.Model):

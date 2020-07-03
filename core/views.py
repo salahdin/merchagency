@@ -99,16 +99,13 @@ def register_service(request):
     if request.method == "POST":
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                service_form = form.save(commit=False)
-                user_instance = User.objects.get(id=request.user.id)
-                service_form = user_instance
-                docs = request.FILES
-                service_form.avi = docs['avi']
-                service_form.save()
-                return redirect('/')
-            except Exception:
-                return redirect('/')
+            service_form = form.save(commit=False)
+            user_instance = User.objects.get(id=request.user.id)
+            service_form.user = user_instance
+            """docs = request.FILES
+            service_form.avi = docs['avi']"""
+            service_form.save()
+            return redirect('/')
     else:
         form = ServiceForm()
     return render(request, 'registerService.html', {'form': form})

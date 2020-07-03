@@ -18,7 +18,7 @@
       {% for i in address %}
         <a href="{{i.link}}">{{ i.link }}</a>
     {% endfor %}
-  {% if profile.user not in request.user.follower.all %}
+  {% if profile.user not in request.user.following.all %}
         <form method="get" action="{% url "core:follow" profile.user.id %}">
             <input type="submit" name="follow" value="follow" class="btn-primary">
         </form>

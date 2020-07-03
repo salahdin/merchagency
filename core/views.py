@@ -67,10 +67,11 @@ def userfeed(request):
 
     usersIfollow = set()
     for user in request.user.follower.all():
-        usersIfollow.add(user.id)
-
+        usersIfollow.add(user.following_user_id)
+    follow_new_users = User.objects.all()[:5]
     posts = Post.objects.all().filter(postby__in=usersIfollow)[0:25]
-    return render(request, 'homepage.html', {'posts': posts})
+
+    return render(request, 'homepage.html', {'posts': posts, 'some_users': follow_new_users})
 
 @login_required(login_url="/")
 def post(request):
@@ -98,13 +99,16 @@ def register_service(request):
     if request.method == "POST":
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
-            service_form = form.save(commit=False)
-            user_instance = User.objects.get(id=request.user.id)
-            service_form = user_instance
-            docs = request.FILES
-            service_form.avi = docs['avi']
-            service_form.save()
-            return redirect('/')
+            try:
+                service_form = form.save(commit=False)
+                user_instance = User.objects.get(id=request.user.id)
+                service_form = user_instance
+                docs = request.FILES
+                service_form.avi = docs['avi']
+                service_form.save()
+                return redirect('/')
+            except Exception:
+                return redirect('/')
     else:
         form = ServiceForm()
     return render(request, 'registerService.html', {'form': form})

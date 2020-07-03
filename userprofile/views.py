@@ -41,7 +41,7 @@ def frontpage(request):
                 # log the user in
                 login(request, user)
                 messages.success(request, 'Account created successfully')
-                return redirect('core:list_view')
+                return redirect('core:register_service')
             else:
                 messages.warning(request, 'Failed to create account')
         else:
@@ -75,7 +75,7 @@ def editprofile(request):
             profile.user = request.user
             profile.save()
             address.save()
-            redirect("core:list_view")
+            return redirect("core:list_view")
     else:
         addressform = UserAddressForm()
         profileform = UserProfileForm()

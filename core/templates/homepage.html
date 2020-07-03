@@ -33,6 +33,12 @@
     {% if not posts %}
         <div class="card">
             <p class="card-text"> your feed is empty follow some accounts</p>
+            {% for i in some_users %}
+                <div class="card">
+                    <p class="card-text">i</p>
+                    <a class="btn-primary" href="{% url 'core:follow' i.id %}">Follow</a>
+                </div>
+            {% endfor %}
         </div>
     {% endif %}
 {% endblock %}

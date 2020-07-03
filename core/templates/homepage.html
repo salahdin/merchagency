@@ -3,23 +3,45 @@
 
 {% block body %}
     <style>
-    .avatar {
-      vertical-align: middle;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
+        .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        }
+        /*
+        #E27D60
+        #85cfdc
+        */
+        .card-header{
+            background-color:  #E27D60;
+            border-radius: 25px ;
+            border-color:  #E27D60;
+            border-width: 5px;
+        }
+        .card{
+            border-radius: 25px ;
+            border-color:  #E27D60;
+            border-width: 5px;
+            background: rgba(255, 255, 255, 0);
+        }
+        .card-body{
+            background-color:  #E27D60;
+        }
+        label{
+            display: none;
+        }
     </style>
         {% for p in posts %}
         <div class="card mx-auto"  style="width: 50rem;">
-            <div class="card-header">
+            <div class="card-header m-1">
                 <a href="{% url 'accounts:profile' p.postby.id%}">{{ p.postby }}</a></p>
                 {% if p.image %}
                     <img class="card-img-top avatar img-circle" src="{{p.image.url}}" alt="Card image cap">
                 {% endif %}
             </div>
-            <div class="card-body">
-            <p class="card-text">desc : {{ p.postText }}</p>
+            <div class="card-body text-white">
+            <p class="card-text">Description : {{ p.postText }}</p>
             <p class="card-text">price : {{ p.price }}</p>
                 {% ratings p %}
             </div>

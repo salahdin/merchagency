@@ -1,11 +1,9 @@
 {% load static %}
 <html lang="en">
   <style>
-    /*#2C3531
-    #116466
-    #D9B08C
-    #FFCB9A
-    #D1E8E2
+    /*
+    #E27D60
+    #85cfdc
     */
     .card-header{
         background-color:  #116466;
@@ -14,7 +12,7 @@
         border-width: 5px;
     }
     body{
-      background-image: url("https://nuwallpaperhd.info/wp-content/uploads/2018/01/simple-White-Background-Wallpaper.jpg");
+      background-image: url("https://coolbackgrounds.io/images/unsplash/josh-bean-medium-9501ba9f.jpg");
     }
     .card{
         border-radius: 25px ;
@@ -29,9 +27,7 @@
     }
     nav{
       background-color: #2C3531;
-    }
-    #q{
-      background-color:#D1E8E2;
+      background: rgba(255, 255, 255, 0);
     }
     #bg-img{
       position:fixed;
@@ -64,7 +60,7 @@
         </ul>
           {% endif %}
         <form action="{% url 'core:search_results' %}" method="get" class="form-inline my-2 my-lg-0">
-          <input id="q" name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
+          <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
           <button class="btn my-2 my-sm-0 text-white" type="submit">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>

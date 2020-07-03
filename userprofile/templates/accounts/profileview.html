@@ -1,14 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
+<style>
+  /*
+  #E27D60
+  #85cfdc
+  */
+  .card{
+      border-radius: 25px ;
+      border-color:  #E27D60;
+      border-width: 3px;
+      background: rgba(255, 255, 255, 0);
+  }
+  .card-body{
+    background-color:  #E27D60;
+  }
+  .card-footer{
+    background-color:  #E27D60;
+  }
+  .btn{
+      background-color:  #E27D60;
+  }
+</style>
 
 <img class="img-thumbnail mx-auto d-block"  src="{{ profile.avatar.url}}" alt="Card image cap">
-<div class="card mb-3">
-  <div class="card-body">
+<div class="card m-3">
+  <div class="card-body text-white">
     <h5 class="card-title">{{ profile.user }}</h5>
     <p class="card-text">{{ profile.bio }}</p>
-      {% for i in address %}
-        <a href="{{i.link}}">{{ i.link }}</a>
+    {% for i in address %}
+      <a href="{{i.link}}">{{ i.link }}</a>
     {% endfor %}
   </div>
 </div>
@@ -17,14 +38,14 @@
 <h3>posts from user</h3>
     <div class="card-group">
         {% for posts in person.seller.servicepost.all %}
-      <div class="card">
+      <div class="card m-2">
       {% if  posts.postImage %}
         <img class="card-img-top" src="{{ posts.postImage.url }}" alt="Card image cap">
       {% endif %}
-          <div class="card-body">
+          <div class="card-body text-white">
           <p class="card-text"> {{ posts.postText }}</p>
         </div>
-        <div class="card-footer">
+        <div class="card-footer text-white">
           <small class="text-muted">{{ posts.postCreated }}</small>
         </div>
       </div>

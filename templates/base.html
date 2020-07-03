@@ -30,16 +30,18 @@
               <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'accounts:logout' %}">logout</a>
               </li>
-            <form action="{% url 'core:search_results' %}" class="form-inline my-2 my-lg-0 align-left">
-                    <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
-                    <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Search</button>
-            </form>
             {% else %}
             <li class="nav-item">
                 <a class="nav-link disabled text-white" href="{% url 'accounts:frontpage' %}">register/login</a>
             </li>
         {% endif %}
         </ul>
+          <span class="align-right">
+            <form action="{% url 'core:search_results' %}" style="float: left" class="form-inline my-2 my-lg-0">
+                <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
+                <button class="btn btn btn-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </span>
       </div>
   </nav>
 

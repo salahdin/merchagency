@@ -30,17 +30,18 @@
                 <br>
             {% endfor %}
 
-    {% if not posts %}
-        <div class="card">
-            <p class="card-text"> your feed is empty follow some accounts</p>
+    {% if  posts %}
+            <p class="text-info"> your feed is empty, follow some services....</p>
             {% for i in some_users %}
-                <div class="card">
-                    <p class="card-text">{{ i }}</p>
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                  <div class="card-header">{{ i }}</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ i.desc_snippet }}</p>
                     <form method="get" action="{% url 'core:follow' i.id %}">
-                        <input type="submit" class="btn-outline-primary" value="Follow" name="Follow">
+                        <input type="submit" class="btn btn-primary" value="Follow" name="Follow">
                     </form>
+                  </div>
                 </div>
             {% endfor %}
-        </div>
     {% endif %}
 {% endblock %}

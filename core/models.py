@@ -29,9 +29,12 @@ class Service(models.Model):
     avi = models.ImageField(null=True, blank=True, upload_to='avatar/')
 
 
+
     def __str__(self):
         return self.Service_name
 
+    def desc_snippet(self):
+        return self.description[:25]
 
 class Post(models.Model):
     postby = models.ForeignKey(Service,

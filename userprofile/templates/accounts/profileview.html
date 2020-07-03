@@ -12,17 +12,17 @@
 
 <img class="img-thumbnail mx-auto d-block"  src="{{ profile.avatar.url}}" alt="Card image cap">
 <div class="card mb-3">
-    {% if profile.user not in request.user.follower.all %}
-        <form method="get" action="{% url "core:follow" profile.user.id %}">
-            <input type="submit" name="follow" value="follow" class="btn-outline-secondary">
-        </form>
-    {% endif %}
   <div class="card-body">
     <h5 class="card-title">{{ profile.user }}</h5>
     <p class="card-text">{{ profile.bio }}</p>
       {% for i in address %}
         <a href="{{i.link}}">{{ i.link }}</a>
     {% endfor %}
+  {% if profile.user not in request.user.follower.all %}
+        <form method="get" action="{% url "core:follow" profile.user.id %}">
+            <input type="submit" name="follow" value="follow" class="btn-primary">
+        </form>
+    {% endif %}
   </div>
 </div>
 

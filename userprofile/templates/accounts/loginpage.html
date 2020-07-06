@@ -10,6 +10,20 @@
           <div class="card-img-left d-none d-md-flex">
              <!-- Background image for card set in CSS! -->
           </div>
+            {% if signinform.errors %}
+                  {% for field in signinform %}
+                    {% for error in field.errors %}
+                      <div class="alert alert-danger">
+                        <b>{{ error|escape }}</b>
+                      </div>
+                    {% endfor %}
+                  {% endfor %}
+                  {% for error in signinform.non_field_errors %}
+                    <div class="alert alert-danger">
+                      <b>{{ error|escape }}</b>
+                    </div>
+                  {% endfor %}
+            {% endif %}
           <div class="card-body">
             <h5 class="card-title text-center">Register</h5>
             <form action="." method="post" class="form-signin">
@@ -25,13 +39,35 @@
             </div>
             </form>
 
+
+                  {% if signupform.non_field_errors %}
+          <div class="alert danger">
+            {{ signupform.non_field_errors }}
+          </div>
+        {% endif %}
+
+        {% if signupform.errors %}
+          {% for field in signupform %}
+            {% for error in field.errors %}
+              <div class="alert alert-danger">
+                <b>{{ error|escape }}</b>
+              </div>
+            {% endfor %}
+          {% endfor %}
+          {% for error in signupform.non_field_errors %}
+            <div class="alert alert-danger">
+              <b>{{ error|escape }}</b>
+            </div>
+          {% endfor %}
+        {% endif %}
+
           <form method="post" action="." class="form-signup">
             {% csrf_token %}
             <div class="signup-page" style="display: none" id="page2">
                 {% for field in signupform %}
                   <div class="form-group">
                     {{ field }}
-                </div>
+                  </div>
                 {% endfor %}
             <input type="submit" value="Sign Up" name="signupform" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
             </div>
@@ -61,5 +97,20 @@
             z.innerText = "back";
           }
         }
+    </script>
+
+    <script>
+    function setPasswordConfirmValidity(str) {
+        const password1 = document.getElementById('password1');
+        const password2 = document.getElementById('password2');
+
+        if (password1.value === password2.value) {
+             password2.setCustomValidity('');
+        } else {
+            password2.setCustomValidity('Passwords must match');
+        }
+        console.log('password2 customError ', document.getElementById('password2').validity.customError);
+        console.log('password2 validationMessage ', document.getElementById('password2').validationMessage);
+    }
     </script>
 {% endblock %}

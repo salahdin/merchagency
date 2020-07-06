@@ -13,9 +13,9 @@ class SignUpForm(UserCreationForm):
     username = forms.CharField(
         widget=forms.widgets.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control'}))
     password1 = forms.CharField(
-        widget=forms.widgets.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control'}))
+        widget=forms.widgets.PasswordInput(attrs={'placeholder': 'Password','oninput':"setPasswordConfirmValidity();" , 'id': 'password1', 'class': 'form-control'}))
     password2 = forms.CharField(
-        widget=forms.widgets.PasswordInput(attrs={'placeholder': 'Password Confirmation', 'class': 'form-control'}))
+        widget=forms.widgets.PasswordInput(attrs={'placeholder': 'Password Confirmation','oninput':"setPasswordConfirmValidity();" , 'id': 'password2', 'class': 'form-control'}))
 
     class Meta:
         fields = ['email', 'username', 'first_name', 'last_name', 'password1', 'password2']

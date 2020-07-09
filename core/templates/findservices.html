@@ -1,0 +1,16 @@
+{% extends 'templates/base.html' %}
+{% block body %}
+
+
+{% for i in services %}
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                  <div class="card-header">{{ i }}</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ i.desc_snippet }}</p>
+                    <form method="get" action="{% url 'core:follow' i.id %}">
+                        <input type="submit" class="btn btn-primary" value="Follow" name="Follow">
+                    </form>
+                  </div>
+                </div>
+            {% endfor %}
+{% endblock %}

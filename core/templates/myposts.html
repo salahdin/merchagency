@@ -1,0 +1,44 @@
+{% extends 'templates/base.html' %}
+{% load ratings %}
+
+{% block body %}
+    <style>
+    .avatar {
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    </style>
+    <h3>my posts</h3>
+    {% if posts %}
+            {% for p in posts %}
+                <div class="card">
+                    <div class="card-header">
+                        <a href="{% url 'accounts:profile' p.postby.id%}">{{ p.postby }}</a></p>
+                    </div>
+                    {% if p.image %}
+                        <img class="card-img-top" src="{{p.image.url}}" alt="Card image cap">
+                    {% endif %}
+                    <div class="card-body">
+                    <p class="card-text">desc : {{ p.postText }}</p>
+                    <p class="card-text">price : {{ p.price }}</p>
+                    </div>
+                    <div class="card-footer">
+                        {% ratings p %}
+                    </div>
+                </div>
+                <br>
+                <br>
+            {% endfor %}
+    {% else %}
+        <div class="card border-success mb-3" style="max-width: 18rem;">
+          <div class="card-header bg-transparent border-warning">Error</div>
+          <div class="card-body text-success">
+            <h5 class="card-title">you dont have any posts</h5>
+            <p class="card-text">you should posts things....</p>
+          </div>
+          <div class="card-footer bg-transparent border-success">Footer</div>
+        </div>
+    {% endif %}
+{% endblock %}

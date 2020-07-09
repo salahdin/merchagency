@@ -126,3 +126,17 @@ def follow(request, id_):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+def mypost(request):
+    try:
+        service_instance = Service.objects.get(id=request.user.seller.id)
+        post = service_instance.servicepost.all()
+    except Exception:
+        pass
+
+    return render(request, 'myposts.html', {'posts': post})
+
+
+def findservices(request):
+    services = Service.objects.all().order_by('createDate')[:10]
+    return render(request,'findservices.html',{'services':services})
+

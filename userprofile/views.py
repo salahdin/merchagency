@@ -89,5 +89,4 @@ def profileDetailView(request, id_):
     profile = UserProfile.objects.get(user=person)
     address = person.useraddress.all()
 
-    return render(request, 'accounts/profileview.html', {'person': person, 'profile': profile, 'address': address})
-
+    return render(request, 'myposts.html', {'person': person, 'profile': profile, 'address': address})

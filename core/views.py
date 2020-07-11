@@ -86,8 +86,9 @@ def post(request):
             post = form.save(commit=False)
             service_instance = Service.objects.get(id=request.user.seller.id)
             post.postby = service_instance
-            docs = request.FILES
-            post.postImage = docs['postImage']
+            if request.FILES:
+                docs = request.FILES
+                post.postImage = docs['postImage']
             post.save()
             return redirect('/')
     else:

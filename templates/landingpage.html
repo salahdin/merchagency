@@ -6,6 +6,9 @@ body {
   background-image: url("https://coolbackgrounds.io/images/unsplash/josh-bean-medium-9501ba9f.jpg");
   background-color: #cccccc;
 }
+.card {
+    background-color: rgba(255,255,255, 0.2) !important;
+}
 
 </style>
   <!-- Icons Grid -->
@@ -17,13 +20,36 @@ body {
               {% if request.user.is_authenticated %}
                   <p class="lead font-weight-normal text-white">welcome, {{ request.user }}</p>
               {% else %}
-                  <p class="lead font-weight-normal text-white">slogan</p>
-                  <p class="lead font-weight-normal">explain</p>
+                  <p class="lead font-weight-normal text-white">building your brand with a hunger</p>
+                  <p class="lead small font-weight-normal"></p>
                   <a class="btn btn-outline-secondary" href="{% url 'accounts:frontpage' %}">register or login</a>
               {% endif %}
           </div>
           <div class="product-device box-shadow d-none d-md-block"></div>
           <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+        <div class="card-deck">
+            <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="https://www.berley.co.uk/wp-content/uploads/2018/01/hero.jpg" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text text-white">We don’t just believe in small business we live it!!</p>
+          </div>
+        </div>
+
+          <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="https://cdn.dribbble.com/users/639339/screenshots/2579265/rise-and-grind.jpg" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text text-white">we are a platform which assits small businesses to advertise their products</p>
+          </div>
+        </div>
+
+            <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="https://franchiseindia.s3.ap-south-1.amazonaws.com/uploads/content/wi/art/brand-building-8ea6c101c6.png" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text text-white">Focus on building the best possible business. If you are great, people will notice and opportunities will appear</p>
+          </div>
+        </div>
+        </div>
     </div>
+
 
 {% endblock %}

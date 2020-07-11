@@ -6,6 +6,7 @@ class PostForm(forms.ModelForm):
 
     postText = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'placeholder': 'Post', 'class': 'form-control'}))
     postImage = forms.ImageField(required=False, widget=forms.widgets.FileInput(attrs={'placeholder': 'Image', 'class': 'form-control'}))
+    PostImageWebLink = forms.CharField(widget=forms.widgets.TextInput(attrs={'placeholder': 'input image from the web', 'class': 'form-control'}))
     price = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={'placeholder': 'price of item', 'class': 'form-control'}))
 
     class Meta:

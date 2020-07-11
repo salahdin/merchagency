@@ -15,8 +15,10 @@
                     <div class="card-header">
                         <a href="{% url 'accounts:profile' p.postby.id%}">{{ p.postby }}</a></p>
                     </div>
-                    {% if p.image %}
-                        <img class="card-img-top" src="{{p.image.url}}" alt="Card image cap">
+                    {% if p.postImage %}
+                        <img class="card-img-top" src="{{p.postImage.url}}" alt="Card image cap">
+                    {% elif p.PostImageWebLink %}
+                        <img class="card-img-top" src="{{p.PostImageWebLink}}" alt="Card image cap">
                     {% endif %}
                     <div class="card-body">
                     <p class="card-text">desc : {{ p.postText }}</p>

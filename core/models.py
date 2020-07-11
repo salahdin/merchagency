@@ -42,7 +42,8 @@ class Post(models.Model):
                                related_name="servicepost"
                                )
     postText = models.TextField(null=False, blank=False,verbose_name="post text")
-    postImage = models.ImageField(upload_to="element/", null=True)
+    postImage = models.ImageField(upload_to="element/",blank=True, null=True)
+    PostImageWebLink = models.CharField(max_length=1000,null=True,blank=True,verbose_name="input image from the web")
     postCreated = models.DateTimeField(auto_now=True)
     price = models.CharField(max_length=15, null=True, verbose_name="price of item",blank=True)
 

@@ -6,7 +6,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.db.models import Q
 from userprofile.models import UserFollowing
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 
 class HomePage(TemplateView):
     template_name = "templates/landingpage.html"
@@ -84,13 +84,17 @@ def post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            service_instance = Service.objects.get(id=request.user.seller.id)
-            post.postby = service_instance
-            if request.FILES:
-                docs = request.FILES
-                post.postImage = docs['postImage']
-            post.save()
-            return redirect('/')
+            try:
+                service_instance = Service.objects.get(id=request.user.seller.id)
+                post.postby = service_instance
+                if request.FILES:
+                    docs = request.FILES
+                    post.postImage = docs['postImage']
+                post.save()
+                return redirect('/')
+            except Exception:
+                messages.warning(request, 'please register your service first')
+                return redirect('core:register_service')
     else:
         form = PostForm()
     return render(request, 'post.html', {'form': form})

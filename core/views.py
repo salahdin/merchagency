@@ -87,6 +87,7 @@ def post(request):
             try:
                 service_instance = Service.objects.get(id=request.user.seller.id)
                 post.postby = service_instance
+                post.price = request.POST['price']
                 if request.FILES:
                     docs = request.FILES
                     post.postImage = docs['postImage']

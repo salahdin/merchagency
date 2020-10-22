@@ -15,7 +15,6 @@ digital marketing
   ```
  to run the server run the following commands
  ```shell
- cd optss
  python manage.py makemigrations
  python manage.py migrate
  python manage.py runserver
